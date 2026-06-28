@@ -1,58 +1,71 @@
-let current = "";
-
-let display = document.getElementById("expression");
-let result = document.getElementById("result");
-let historyList = document.getElementById("historyList");
+let current="";
 
 
-let justCalculated = false;
+let display =
+document.getElementById("expression");
+
+
+let result =
+document.getElementById("result");
+
+
+let historyList =
+document.getElementById("historyList");
+
+
+
+let justCalculated=false;
+
+
 
 
 
 function append(value){
 
 
-let operators = ["+","-","*","/"];
+let operators=["+","-","*","/"];
 
 
 
-// calculation کے بعد operator دبایا
 
 if(justCalculated && operators.includes(value)){
 
 
-current = result.dataset.raw;
-
-justCalculated = false;
+current=result.dataset.raw;
 
 
-}
-
-
-// calculation کے بعد number یا function دبایا
-
-else if(justCalculated && !operators.includes(value)){
-
-
-current = "";
-
-result.innerHTML = "0";
-
-justCalculated = false;
+justCalculated=false;
 
 
 }
 
 
+else if(justCalculated){
 
-current += value;
+
+current="";
 
 
-display.innerHTML = current;
+result.innerHTML="0";
+
+
+justCalculated=false;
+
+
+}
+
+
+
+
+current+=value;
+
+
+display.innerHTML=current;
 
 
 
 }
+
 
 
 
@@ -62,15 +75,16 @@ display.innerHTML = current;
 function clearAll(){
 
 
-current = "";
+current="";
 
-display.innerHTML = "";
 
-result.innerHTML = "0";
+display.innerHTML="";
 
-result.dataset.raw = "";
 
-justCalculated = false;
+result.innerHTML="0";
+
+
+justCalculated=false;
 
 
 }
@@ -80,14 +94,13 @@ justCalculated = false;
 
 
 
-
 function deleteChar(){
 
 
-current = current.slice(0,-1);
+current=current.slice(0,-1);
 
 
-display.innerHTML = current;
+display.innerHTML=current;
 
 
 }
@@ -101,36 +114,25 @@ display.innerHTML = current;
 function calculate(){
 
 
+if(justCalculated)return;
+
+
+
 try{
 
 
+let exp=current;
 
-// اگر پہلے ہی answer آ چکا ہے
-// اور دوبارہ = دبایا جائے
 
-if(justCalculated){
-
-return;
-
-}
+let answer=mathSolve(exp);
 
 
 
-let exp = current;
+result.dataset.raw=answer;
 
 
 
-let answer = mathSolve(exp);
-
-
-
-// raw value save
-
-result.dataset.raw = answer;
-
-
-
-result.innerHTML = 
+result.innerHTML=
 Number(answer).toLocaleString(
 "en-US",
 {
@@ -141,39 +143,31 @@ maximumFractionDigits:10
 
 
 
-// history save
-
-let history = document.createElement("li");
+let li=document.createElement("li");
 
 
-history.innerHTML =
+li.innerHTML=
 `${exp} = ${answer}`;
 
 
-
-historyList.prepend(history);
-
+historyList.prepend(li);
 
 
 
-current = answer.toString();
+current=answer.toString();
 
 
-
-justCalculated = true;
-
+justCalculated=true;
 
 
 }
+
 
 
 catch{
 
 
-result.innerHTML = "Error";
-
-
-current = "";
+result.innerHTML="Error";
 
 
 }
@@ -187,48 +181,35 @@ current = "";
 
 
 
+function mathSolve(exp){
 
 
-function mathSolve(expression){
-
-
-
-expression = expression
-
+exp=exp
 
 .replace(/×/g,"*")
 
-
 .replace(/÷/g,"/")
-
 
 .replace(/\^/g,"**")
 
-
 .replace(/sqrt\(/g,"Math.sqrt(")
-
 
 .replace(/sin\(/g,"Math.sin(")
 
-
 .replace(/cos\(/g,"Math.cos(")
 
-
 .replace(/tan\(/g,"Math.tan(")
-
 
 .replace(/log\(/g,"Math.log10(");
 
 
 
 return Function(
-"return " + expression
+"return "+exp
 )();
 
 
-
 }
-
 
 
 
@@ -238,12 +219,10 @@ return Function(
 function clearHistory(){
 
 
-historyList.innerHTML = "";
+historyList.innerHTML="";
 
 
 }
-
-
 
 
 
@@ -252,44 +231,25 @@ historyList.innerHTML = "";
 document.addEventListener(
 "keydown",
 
-function(e){
+e=>{
 
 
-
-if(
-
-e.key.match(/[0-9+\-*/().]/)
-
-){
-
+if(e.key.match(/[0-9+\-*/().]/))
 
 append(e.key);
 
 
-}
 
-
-
-if(e.key === "Enter"){
-
+if(e.key==="Enter")
 
 calculate();
 
 
-}
 
-
-
-if(e.key === "Backspace"){
-
+if(e.key==="Backspace")
 
 deleteChar();
 
 
-}
 
-
-
-}
-
-);
+});

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>3D Scientific Calculator</title>
+<title>Scientific Calculator by Sufiyan</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -16,26 +16,33 @@
 <body>
 
 
-<div class="app">
+<nav>
+
+<h2>
+Scientific Calculator 
+<span>by Sufyan</span>
+</h2>
+
+</nav>
+
+
+
+<main>
 
 
 <div class="calculator">
 
 
-<h1>Scientific Calculator</h1>
-
-
-<div class="display-box">
+<div class="display">
 
 
 <div id="expression"></div>
 
-<div id="result">
-0
-</div>
+<div id="result">0</div>
 
 
 </div>
+
 
 
 
@@ -54,12 +61,10 @@
 <button onclick="append('/')">÷</button>
 
 
-
 <button onclick="append('sqrt(')">√</button>
 <button onclick="append('log(')">log</button>
 <button onclick="append('^2')">x²</button>
 <button onclick="append('*')">×</button>
-
 
 
 <button onclick="append('7')">7</button>
@@ -74,11 +79,10 @@
 <button onclick="append('+')">+</button>
 
 
-
 <button onclick="append('1')">1</button>
 <button onclick="append('2')">2</button>
 <button onclick="append('3')">3</button>
-<button onclick="calculate()" class="equal">=</button>
+<button onclick="calculate()">=</button>
 
 
 <button onclick="append('0')">0</button>
@@ -87,17 +91,21 @@
 <button onclick="append('Math.PI')">π</button>
 
 
+
 </div>
 
 
 </div>
+
+
 
 
 
 <div class="history">
 
 
-<h2>History</h2>
+<h3>History</h3>
+
 
 <button onclick="clearHistory()">
 Clear
@@ -107,11 +115,23 @@ Clear
 <ul id="historyList"></ul>
 
 
-</div>
-
-
 
 </div>
+
+
+
+
+</main>
+
+
+
+<footer>
+
+Sufyan © 2026
+
+</footer>
+
+
 
 
 <script src="script.js"></script>
